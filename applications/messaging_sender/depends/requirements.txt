@@ -1,0 +1,2 @@
+dane-jwe-jws==0.2
+paho-mqtt

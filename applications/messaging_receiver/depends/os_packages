@@ -1,0 +1,5 @@
+python3-pip
+libssl-dev
+libffi-dev
+build-essential
+pkg-config

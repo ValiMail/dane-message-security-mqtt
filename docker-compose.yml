@@ -1,0 +1,22 @@
+version: '2'
+services:
+  maintenance:
+    build:
+      context: ./
+      dockerfile: ./dockerfiles/maintenance.dockerfile
+    volumes:
+      - "identity:/identity"
+  messaging_sender:
+    build:
+      context: ./
+      dockerfile: ./dockerfiles/messaging_sender.dockerfile
+    volumes:
+      - "identity:/identity"
+  messaging_receiver:
+    build:
+      context: ./
+      dockerfile: ./dockerfiles/messaging_receiver.dockerfile
+    volumes:
+      - "identity:/identity"
+volumes:
+    identity:

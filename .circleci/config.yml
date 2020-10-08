@@ -1,0 +1,29 @@
+version: 2.1
+
+workflows:
+  version: 2
+  test_build_deploy_via_balena:
+    jobs:
+      - "build_pi"
+jobs:
+  "build_pi":
+    docker:
+      - image: circleci/python:3.8
+    steps:
+      - checkout
+      - run:
+          name: Balena CLI Install
+          command: |
+            apt-get update && apt-get install -y git wget unzip
+            echo "Download Balena CLI"
+            wget -O ./balena-cli.zip "https://github.com/balena-io/balena-cli/releases/download/v12.3.6/balena-cli-v12.3.6-linux-x64-standalone.zip"
+            echo "Unzip and configure Balena CLI"
+            unzip ./balena-cli.zip && rm -r ./balena-cli.zip
+      - run:
+          name: Push to Balena for build and deploy
+          command: |
+            export PATH="$PATH:$PWD/balena-cli"
+            echo "Log into Balena"
+            balena login --token $BALENA_TOKEN
+            echo "Push repo to Balena"
+            balena push $BALENA_PROJECT_NAME
