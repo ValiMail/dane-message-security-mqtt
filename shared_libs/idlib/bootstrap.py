@@ -1,4 +1,5 @@
 """All the logic for identity bootstrapping is here."""
+import binascii
 import datetime
 import os
 
@@ -134,8 +135,8 @@ class Bootstrap:
         if dns_tlsa_rr is None:
             print("No TLSA entity record found for {}".format(id_name))
             return False
-        entity_cert = dns_tlsa_rr["certificate_association"]
-        dns_cert_obj = DANE.build_x509_object(entity_cert)
+        entity_cert = dns_tlsa_rr["certificate_association"].encode()
+        dns_cert_obj = DANE.build_x509_object(binascii.unhexlify(entity_cert))
         return self.cert_matches_private_key(dns_cert_obj)
 
     def get_private_key_obj(self):

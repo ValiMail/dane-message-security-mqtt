@@ -1,2 +1,3 @@
 dane-jwe-jws==0.2
+dane-discovery==0.5
 paho-mqtt

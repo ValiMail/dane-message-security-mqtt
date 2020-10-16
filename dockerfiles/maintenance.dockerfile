@@ -1,4 +1,5 @@
-FROM balenalib/raspberrypi3-ubuntu:bionic
+ARG IMAGE_ARCH=amd64
+FROM balenalib/${IMAGE_ARCH}-ubuntu:bionic
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV APP_NAME maintenance

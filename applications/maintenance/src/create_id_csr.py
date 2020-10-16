@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """Create a private key and CSR."""
 import os
 import sys

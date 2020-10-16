@@ -6,17 +6,35 @@ services:
       dockerfile: ./dockerfiles/maintenance.dockerfile
     volumes:
       - "identity:/identity"
+    restart: always
+    environment:
+      - CRYPTO_PATH=/identity/
+      - IDENTITY_NAME=${IDENTITY_NAME}
   messaging_sender:
     build:
       context: ./
       dockerfile: ./dockerfiles/messaging_sender.dockerfile
     volumes:
       - "identity:/identity"
+    restart: always
+    environment:
+      - MQTT_HOST=broker.hivemq.com
+      - MQTT_PORT=1883
+      - GROUP_NAME=MyGroup
+      - CRYPTO_PATH=/identity/
+      - IDENTITY_NAME=${IDENTITY_NAME}
   messaging_receiver:
     build:
       context: ./
       dockerfile: ./dockerfiles/messaging_receiver.dockerfile
     volumes:
       - "identity:/identity"
+    restart: always
+    environment:
+      - MQTT_HOST=broker.hivemq.com
+      - MQTT_PORT=1883
+      - GROUP_NAME=MyGroup
+      - CRYPTO_PATH=/identity/
+      - IDENTITY_NAME=${IDENTITY_NAME}
 volumes:
     identity:

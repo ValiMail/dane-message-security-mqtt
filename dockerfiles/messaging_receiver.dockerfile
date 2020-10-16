@@ -1,4 +1,5 @@
-FROM balenalib/raspberrypi3-ubuntu:bionic
+ARG IMAGE_ARCH=amd64
+FROM balenalib/${IMAGE_ARCH}-ubuntu:bionic
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV APP_NAME messaging_receiver
@@ -19,4 +20,4 @@ WORKDIR /application/${APP_NAME}/src
 COPY ${SRC_BASE_PATH}/src .
 COPY ./shared_libs/idlib ./idlib
 
-CMD python3 ./application.py
+CMD unbuffer ./application.py

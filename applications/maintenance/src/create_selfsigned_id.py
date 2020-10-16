@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """Create a self-signed identity."""
 import os
 import sys

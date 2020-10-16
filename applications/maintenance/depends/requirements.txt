@@ -1,1 +1,1 @@
-dane-discovery==0.1
+dane-discovery==0.5

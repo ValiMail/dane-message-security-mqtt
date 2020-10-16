@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """Generate and print a TLSA record to screen."""
 import os
 import sys

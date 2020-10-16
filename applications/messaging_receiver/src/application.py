@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """Event ingestion."""
 import json
 import os
@@ -176,9 +177,8 @@ def message_authentication_thread():
             dns_uri = jwstoken.jose_header["x5u"]
             sender_id = Util.get_name_from_dns_uri(dns_uri)
             print("Message is authentic from {}".format(sender_id))
-            telemetry = json.loads(contents)
-            telemetry["originating_device_id"] = sender_id
-            AUTHENTICATED_MESSAGES.put(json.dumps(telemetry))
+            message = "{} says: {}".format(sender_id, contents.decode())
+            AUTHENTICATED_MESSAGES.put(json.dumps(message))
         except InvalidJWSSignature as err:
             print("Failed to authenticate! ({})".format(err))
         except InvalidJWSObject as err:
