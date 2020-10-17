@@ -40,7 +40,7 @@ def main():
     global AUTHENTICATED_MESSAGES
     global VALID_SENDERS
     global MY_TOPIC
-    MY_TOPIC = build_topic(config)
+    MY_TOPIC = config["identity_name"]
 
     # Create tuples sets for threads
     ingest_args = (config["mqtt_host"], config["mqtt_port"])
@@ -83,15 +83,6 @@ def main():
     for thread in threads:
         thread.join(30)
     sys.exit(0)
-
-
-def build_topic(config):
-    """Return a constructed topic name."""
-    app_name = config["group_name"]
-    device_name = config["identity_name"]
-    topic_name = "/".join([app_name, device_name])
-    return topic_name
-
 
 def mqtt_message_callback(client, userdata, msg):
     """Handle messages from MQTT."""
@@ -237,7 +228,7 @@ def get_config():
         dict.
     """
     var_names = ["identity_name", "crypto_path", "mqtt_host",
-                 "mqtt_port", "group_name"]
+                 "mqtt_port"]
     config = {}
     for x in var_names:
         config[x] = os.getenv(x.upper())

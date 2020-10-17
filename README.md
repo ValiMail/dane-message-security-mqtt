@@ -1,15 +1,17 @@
-# secure-messager
+# dane-message-security-mqtt
 
 E2E encrypted and source-signed messaging using PKI and DNS.
 
 This is a proof-of-concept using JWS/JWE for message signing and encryption, with the certificates being discoverable via DNS. The transport used between messaging entities is the public broker provided by HiveMQ.
+
+Disclaimer: Ultimately, it is the user's responsibility to evaluate the code in this and other referenced projects/libraries/repositories. This proof-of-concept sends messages over a public message broker, meaning that anyone with internet access can read the messages passing through the message broker. When message encryption is in place, the recipient's identity is still revealed via the message topic- that's how the recipient knows which messages it should download, decrypt, and authenticate.
 
 ## Prerequisites
 
 *   For Balena, you will need at least one Raspberry Pi device and an account at Balena.io.
 *   For local use, you will need to install Docker engine and docker-compose.
 *   No matter your deployment, you will need administrative access to a DNS zone on a DNS server that supports the TLSA record type.
-    *   There are a number of DNS-as-a-service providers who support this.
+    *   There are a number of DNS-as-a-service providers who support the TLSA record type.
     *   PowerDNS supports this record type as well, if you prefer hosting your own DNS.
 
 ## Setup (Balena)

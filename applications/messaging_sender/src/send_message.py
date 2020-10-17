@@ -25,7 +25,7 @@ def main():
     except TLSAError as err:
         print("Trouble retrieving certificate from DNS: {}".format(err))
         sys.exit(2)
-    topic_name = "/".join([env_config["group_name"], args.recipient])
+    topic_name = args.recipient
     publish.single(topic_name, payload, hostname=env_config["mqtt_host"],
                    port=int(env_config["mqtt_port"]))
 
@@ -40,7 +40,7 @@ def sign_and_encrypt(source_name, crypto_path, app_uid, message, recipient):
 def get_config():
     """Get config from environment variables."""
     var_names = ["identity_name", "crypto_path", "mqtt_host",
-                 "mqtt_port", "group_name", "app_uid"]
+                 "mqtt_port", "app_uid"]
     config = {}
     for x in var_names:
         config[x] = os.getenv(x.upper())
